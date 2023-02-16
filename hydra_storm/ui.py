@@ -90,45 +90,10 @@ class STORM_HYDRA_LIGHT_PT_light(Panel):
                 main_col.prop(light, 'size')
 
 
-class STORM_HYDRA_WORLD_PT_preview(Panel):
-    bl_label = "Preview"
-    bl_context = "world"
-    bl_options = {'DEFAULT_CLOSED'}
-
-    @classmethod
-    def poll(cls, context):
-        return context.world and super().poll(context)
-
-    def draw(self, context):
-        self.layout.template_preview(context.world)
-
-
-class STORM_HYDRA_WORLD_PT_surface(Panel):
-    bl_label = "Surface"
-    bl_context = "world"
-
-    @classmethod
-    def poll(cls, context):
-        return context.world and super().poll(context)
-
-    def draw(self, context):
-        layout = self.layout
-
-        layout.use_property_split = True
-
-        world = context.world
-
-        if not panel_node_draw(layout, world, 'OUTPUT_WORLD', 'Surface'):
-            layout.prop(world, "color")
-
-
 register_classes, unregister_classes = bpy.utils.register_classes_factory((
     STORM_HYDRA_RENDER_PT_render_settings,
 
     STORM_HYDRA_LIGHT_PT_light,
-
-    STORM_HYDRA_WORLD_PT_preview,
-    STORM_HYDRA_WORLD_PT_surface,
 ))
 
 
@@ -188,6 +153,7 @@ def get_panels():
         'EEVEE_MATERIAL_PT_surface',
         'EEVEE_MATERIAL_PT_volume',
         'EEVEE_MATERIAL_PT_settings',
+        'EEVEE_WORLD_PT_surface',
     }
 
     for panel_cls in bpy.types.Panel.__subclasses__():
